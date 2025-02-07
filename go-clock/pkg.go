@@ -1,7 +1,15 @@
 package clock
 
 import (
+	"github.com/ahawker/go-stdlib/go-clock/internal"
 	"time"
+)
+
+// Interface Assertions
+var (
+	_ Clock     = (*internal.Real)(nil)
+	_ Clock     = (*internal.Fake)(nil)
+	_ FakeClock = (*internal.Fake)(nil)
 )
 
 // Type Aliases
@@ -14,15 +22,15 @@ type (
 // Real returns a `clock.Clock` implementation that uses the `time` package
 // with the current time.
 func Real() Clock {
-	return &clock{}
+	return internal.NewReal()
 }
 
 // Fake returns a `clock.Clock` implementation that uses a fake implementation.
 //
-// Cast this to `clock.Mock` to access helper functions for controlling
+// Cast this to `clock.FakeClock` to access helper functions for controlling
 // the underlying time source.
-func Fake() Mock {
-	return &fake{t: time.Unix(0, 0)}
+func Fake() FakeClock {
+	return internal.NewFake(time.Now())
 }
 
 // Clock represents an interface to the functions in the `time` package.
@@ -38,8 +46,8 @@ type Clock interface {
 	Until(time.Time) time.Duration
 }
 
-// Mock represents an interface of helper functions for controlling
-// the time source of a mocked clock.
-type Mock interface {
+// FakeClock represents a `clock.Clock` implementation with of helper functions
+// for controlling the underlying time source.
+type FakeClock interface {
 	Clock
 }
