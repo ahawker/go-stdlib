@@ -4,5 +4,6 @@ use (
 	./go-clock
 	./go-errors
 	./go-must
+	./go-option
 	./go-ratelimit
 )
