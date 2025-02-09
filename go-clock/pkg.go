@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// Interface Assertions
+// Assertions
 var (
 	_ Clock     = (*internal.Real)(nil)
 	_ Clock     = (*internal.Fake)(nil)
