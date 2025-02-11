@@ -28,14 +28,14 @@ type Config struct {
     RPSLimit int
 }
 
-func WithAdapter(adapter string) option.Ref[*Config] {
+func WithAdapter(adapter string) option.Opt[*Config] {
     return func(c *Config) error {
         c.Adapter = adapter
         return nil
     }
 }
 
-func WithRPSLimit(limit int) option.Ref[*Config] {
+func WithRPSLimit(limit int) option.Opt[*Config] {
     return func(c *Config) error {
         c.RPSLimit = limit
         return nil
